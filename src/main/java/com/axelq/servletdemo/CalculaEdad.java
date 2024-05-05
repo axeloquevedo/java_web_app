@@ -17,7 +17,7 @@ public class CalculaEdad extends HttpServlet {
         String fecha = request.getParameter("fechanacimiento");
 
         if (fecha == null) {
-            response.getWriter().println("<h1>Error, la fecha de nacimiento es un valor obligatorio</h1>");
+            response.getWriter().println("<h1>Error, la fecha de nacimiento es un valor obligatorio, favor de agregarlo como query parameter (en la URL)</h1>");
         }
 
 
