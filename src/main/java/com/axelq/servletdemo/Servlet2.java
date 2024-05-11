@@ -16,13 +16,6 @@ import static java.lang.System.out;
 @WebServlet(name = "servlet2", value = "/servlet2")
 public class Servlet2 extends HttpServlet{
 
-    private String message1, message2;
-
-   /* public void init() {
-        message1 = "Hola Mundo desde un Servlet";
-        message2 = "Mi primer servlet, manda un saludo";
-    }*/
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
