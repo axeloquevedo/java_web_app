@@ -10,8 +10,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,40 +27,39 @@ public class CalculaEdad extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
-        String strfecha = request.getParameter("fechanacimiento");
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + "Servlet calcula Edad" + "</h1>");
-        out.println("<p>" + "Edad calculada" + "</p>");
-        if(request.getParameter("edad") != null) {
-            out.println("Edad: " + request.getParameter("edad"));
+        Calendar fechaActual = Calendar.getInstance();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+        String strfecha = request.getParameter("fechaNacimiento");
+
+        if (strfecha == null || strfecha.isEmpty()) {
+
+            response.getWriter().println("Falta fecha de nacimiento, proporciónala en el URL");
+            return;
         }
-        out.println("</body></html>");
-
-
-        if (strfecha == null) {
-            response.getWriter().println("<h1>Error, la fecha de nacimiento es un valor obligatorio, favor de agregarlo como query parameter (en la URL)</h1>");
-        }
-
-        Date fechaNac = null;
-        try{
-            fechaNac = new SimpleDateFormat("dd-MM-yyyy").parse(strfecha);
-        } catch (ParseException ex){
-            Logger.getLogger(CalculaEdad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if(fechaNac != null){
-            Calendar fechaNacimiento = Calendar.getInstance();
-            Calendar fechaActual = Calendar.getInstance();
-            fechaNacimiento.setTime(fechaNac);
+        try {
+            Calendar fechaNacimiento = new GregorianCalendar();
+            fechaNacimiento.setTime(formatter.parse(strfecha));
 
             int edad = fechaActual.get(Calendar.YEAR) - fechaNacimiento.get(Calendar.YEAR);
 
-            request.setAttribute("edad", edad);
-        }
+            if (fechaNacimiento.get(Calendar.MONTH) > fechaActual.get(Calendar.MONTH) ||
+                    (fechaNacimiento.get(Calendar.MONTH) == fechaActual.get(Calendar.MONTH) &&
+                            fechaNacimiento.get(Calendar.DAY_OF_MONTH) > fechaActual.get(Calendar.DAY_OF_MONTH))) {
+                edad--;
+            }
 
-        request.getRequestDispatcher("calculaedad.jsp").forward(request, response);
+            response.getWriter().println("<h1>Edad Calculada</h1>");
+            response.getWriter().println("Edad: " + edad + " años");
+            response.getWriter().println();
+            response.getWriter().println("<p>Servlet que calcula la edad, " +
+                    "pasando como parámetro la fecha de nacimiento: " + formatter.toPattern());
+        } catch (Exception e) {
+            // Si hay algún error al calcular la edad, imprimir un mensaje de error
+            response.getWriter().println("Error al calcular la edad: " + e.getMessage());
+        }
     }
 }
 
