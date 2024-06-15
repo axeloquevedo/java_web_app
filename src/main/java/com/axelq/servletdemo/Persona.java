@@ -1,7 +1,5 @@
 package com.axelq.servletdemo;
 
-//@WebServlet(name = "Persona", value = "/Persona")
-
 public class Persona implements java.io.Serializable {
 
     private int id;

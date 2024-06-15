@@ -14,13 +14,13 @@ import java.util.List;
 
 import static java.lang.Class.forName;
 
-@WebServlet(name = "Personas", value = "/PersonaServlet")
+@WebServlet(name = "PersonaServlet", value = "/PersonaServlet")
 
 public class PersonaServlet extends HttpServlet {
 
     private static final String URL = "jdbc:mysql://localhost:3306/universidad";
     private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "A&Quevedo2003";
 
     protected  void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
