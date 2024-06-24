@@ -3,8 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+
     <servlet-mapping>
         <servlet-name>PersonaServlet</servlet-name>
         <url-pattern>/PersonaServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GradoServlet</servlet-name>
+        <url-pattern>/GradoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GradoServlet</servlet-name>
+        <servlet-class>com.axelq.servletdemo.GradoServlet</servlet-class>
+    </servlet>
 </web-app>

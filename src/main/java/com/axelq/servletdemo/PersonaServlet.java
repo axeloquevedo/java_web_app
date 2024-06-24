@@ -12,13 +12,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Class.forName;
-
 @WebServlet(name = "PersonaServlet", value = "/PersonaServlet")
 
 public class PersonaServlet extends HttpServlet {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/universidad";
+    private static final String URL = "";
     private static final String USER = "root";
     private static final String PASSWORD = "A&Quevedo2003";
 

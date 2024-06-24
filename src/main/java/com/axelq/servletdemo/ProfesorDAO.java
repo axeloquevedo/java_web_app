@@ -10,3 +10,4 @@ public interface ProfesorDAO {
     Profesor obtener(int id) throws SQLException;
     List<Profesor> obtenerTodos() throws SQLException;
 }
+
